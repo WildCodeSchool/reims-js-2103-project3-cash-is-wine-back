@@ -19,7 +19,9 @@
   },
   "homepage": "https://github.com/WildCodeSchool/reims-js-2103-project3-cash-is-wine-back#readme",
   "dependencies": {
-    "express": "^4.17.1"
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "mysql2": "^2.2.5"
   },
   "devDependencies": {
     "eslint": "^7.27.0",
