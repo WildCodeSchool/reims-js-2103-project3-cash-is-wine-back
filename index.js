@@ -19,7 +19,7 @@ app.listen(port, () => {
   console.log(`Server listening on port ${port}`);
 });
 
-app.get('/', (req, res) => {
+app.get('/bottle', (req, res) => {
   connection.query(
     'SELECT * FROM wine_bottle',
     (err, results) => {
@@ -32,7 +32,7 @@ app.get('/', (req, res) => {
   );
 });
 
-app.post('/newbottle', (req, res) => {
+app.post('/bottle', (req, res) => {
   const {
     estate, appellation, terroir, label, color, variety, type, category, reward, precision, year,
   } = req.body;

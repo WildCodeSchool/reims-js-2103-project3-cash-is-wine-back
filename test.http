@@ -1,25 +1,25 @@
-get  http://localhost:3000/
+get  http://localhost:3000/bottle
 Content-Type: application/json
 
 ###
-post  http://localhost:3000/newbottle
+post  http://localhost:3000/bottle
 Content-Type: application/json
 Accept:application/json
 
 {
   "estate" : "Loire",
   "appellation": "Chinon",
-  "terroir": ,
+  "terroir": "",
   "label": "AOC-AOP",
   "color": "Blanc",
   "variety": "Chenin",
   "type": "Sec",
   "category": "Région 1",
-  "reward": ,
+  "reward": "",
   "precision": "2005 est une année exceptionnelle",
   "year": 2005
 }
 
 ###
-delete  http://localhost:3000/bottle/3
+delete  http://localhost:3000/bottle/4
 Content-Type: application/json
