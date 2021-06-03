@@ -3,7 +3,7 @@ const connection = require('./db-config');
 
 const app = express();
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 8000;
 
 connection.connect((err) => {
   if (err) {
@@ -19,7 +19,7 @@ app.listen(port, () => {
   console.log(`Server listening on port ${port}`);
 });
 
-app.get('/bottle', (req, res) => {
+app.get('/bottles', (req, res) => {
   connection.query(
     'SELECT * FROM wine_bottle',
     (err, results) => {
@@ -32,7 +32,7 @@ app.get('/bottle', (req, res) => {
   );
 });
 
-app.post('/bottle', (req, res) => {
+app.post('/bottles', (req, res) => {
   const {
     estate, appellation, terroir, label, color, variety, type, category, reward, precision, year,
   } = req.body;
@@ -49,7 +49,7 @@ app.post('/bottle', (req, res) => {
   );
 });
 
-app.delete('/bottle/:id', (req, res) => {
+app.delete('/bottles/:id', (req, res) => {
   const bottleId = req.params.id;
   connection.query(
     'DELETE FROM wine_bottle WHERE id = ?',
