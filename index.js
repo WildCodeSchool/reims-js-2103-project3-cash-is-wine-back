@@ -43,7 +43,21 @@ app.post('/bottles', (req, res) => {
       if (err) {
         res.status(500).send('Error saving the bottle');
       } else {
-        res.status(201).send('Bottle successfully saved');
+        const newBottle = {
+          id: result.insertId,
+          estate,
+          appellation,
+          terroir,
+          label,
+          color,
+          variety,
+          type,
+          category,
+          reward,
+          precision,
+          year,
+        };
+        res.status(201).send(newBottle);
       }
     },
   );
