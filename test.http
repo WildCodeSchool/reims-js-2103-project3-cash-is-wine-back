@@ -25,10 +25,9 @@ put  http://localhost:8000/bottles/10
 Content-Type: application/json
 
 
-{  
-  "color": "Rouge",
-  "type": "Moelleux",
-  "year": 2015
+{   
+  "terroir": "Lorem ipsum",
+  "year": 2005
 }
 
 ###

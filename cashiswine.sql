@@ -1,6 +1,6 @@
 create database if not exists cashisvine;
 
-use cashisvine;
+use cashiswine;
 
 create table `wine_bottle`(
   `id` int NOT NULL AUTO_INCREMENT,
