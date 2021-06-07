@@ -63,6 +63,40 @@ app.post('/bottles', (req, res) => {
   );
 });
 
+app.put('/bottles/:id', (req, res) => {
+  const bottleId = req.params.id;
+  connection.query(
+    'SELECT * FROM wine_bottle WHERE id = ?',
+    [bottleId],
+    (err, selectResults) => {
+      if (err) {
+        console.log(err);
+        res.status(500).send('Error updating the bottle');
+      } else {
+        const bottleFromDb = selectResults[0];
+        if (bottleFromDb) {
+          const bottlePropsToUpdate = req.body;
+          connection.query(
+            'UPDATE wine_bottle SET ? WHERE id = ?',
+            [bottlePropsToUpdate, bottleId],
+            (err) => {
+              if (err) {
+                console.log(err);
+                res.status(500).send('Error updating the bottle');
+              } else {
+                const updated = {...bottleFromDb, ...bottlePropsToUpdate };
+                res.status(200).send(updated);
+              }
+            },
+          );
+        } else {
+          res.status(404).send(`Bottle with id ${bottleId} not found.`);
+        }
+      }
+    },
+  );
+});
+
 app.delete('/bottles/:id', (req, res) => {
   const bottleId = req.params.id;
   connection.query(

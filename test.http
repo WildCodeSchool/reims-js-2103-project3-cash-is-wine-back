@@ -4,7 +4,7 @@ Content-Type: application/json
 ###
 post  http://localhost:8000/bottles
 Content-Type: application/json
-Accept:application/json
+
 
 {
   "estate" : "Loire",
@@ -17,6 +17,16 @@ Accept:application/json
   "category": "Région 1",
   "reward": "",
   "precision": "2005 est une année exceptionnelle",
+  "year": 2005
+}
+
+###
+put  http://localhost:8000/bottles/10
+Content-Type: application/json
+
+
+{   
+  "terroir": "Lorem ipsum",
   "year": 2005
 }
 
