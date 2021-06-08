@@ -1,4 +1,4 @@
-create database if not exists cashisvine;
+create database if not exists cashiswine;
 
 use cashiswine;
 
