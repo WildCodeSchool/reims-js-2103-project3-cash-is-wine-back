@@ -1,7 +1,10 @@
 const express = require('express');
+const cors = require('cors');
 const connection = require('./db-config');
 
 const app = express();
+
+app.use(cors());
 
 const port = process.env.PORT || 8000;
 
@@ -84,7 +87,7 @@ app.put('/bottles/:id', (req, res) => {
                 console.log(err);
                 res.status(500).send('Error updating the bottle');
               } else {
-                const updated = {...bottleFromDb, ...bottlePropsToUpdate };
+                const updated = { ...bottleFromDb, ...bottlePropsToUpdate };
                 res.status(200).send(updated);
               }
             },
