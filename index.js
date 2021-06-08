@@ -1,3 +1,6 @@
+require('dotenv').config();
+
+// init the express app
 const express = require('express');
 const connection = require('./db-config');
 
@@ -14,6 +17,14 @@ connection.connect((err) => {
 });
 
 app.use(express.json());
+const cors = require('cors');
+
+app.use(cors());
+
+// add routes
+const routes = require('./routes');
+
+app.use(routes);
 
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`);
@@ -84,7 +95,7 @@ app.put('/bottles/:id', (req, res) => {
                 console.log(err);
                 res.status(500).send('Error updating the bottle');
               } else {
-                const updated = {...bottleFromDb, ...bottlePropsToUpdate };
+                const updated = { ...bottleFromDb, ...bottlePropsToUpdate };
                 res.status(200).send(updated);
               }
             },
@@ -112,3 +123,5 @@ app.delete('/bottles/:id', (req, res) => {
     },
   );
 });
+
+module.exports = app;
