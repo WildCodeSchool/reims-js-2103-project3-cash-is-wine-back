@@ -5,6 +5,15 @@ POST http://localhost:8000/users
 Content-type: application/json
 
 {
-    "email": "me@mail.com",
+    "email": "b@mail.com",
+    "password": "123456"
+}
+
+###
+POST http://localhost:8000/login
+Content-type: application/json
+
+{
+    "email": "b@mail.com",
     "password": "123456"
 }
