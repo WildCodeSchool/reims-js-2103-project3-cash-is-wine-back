@@ -1,7 +1,6 @@
-const argon2 = require('argon2');
-const db = require('../db-config');
-
 const userRoutes = require('express').Router();
+const db = require('../db-config');
+const { hashPassword } = require('../middlewares/auth');
 
 userRoutes.get('/', (req, res) => {
   db.query('SELECT * from user', (err, results) => {
@@ -14,12 +13,11 @@ userRoutes.get('/', (req, res) => {
   });
 });
 
-userRoutes.post('/', async (req, res) => {
+userRoutes.post('/', hashPassword, (req, res) => {
   const user = {
     email: req.body.email,
     password: req.body.password,
   };
-  user.password = await argon2.hash(user.password);
 
   db.query('INSERT INTO user (email, password) VALUES (?, ?)', [user.email, user.password], (err, results) => {
     if (err) {
