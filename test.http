@@ -1,8 +1,8 @@
-get  http://localhost:8000/bottles
+get  http://localhost:8000/references
 Content-Type: application/json
 
 ###
-post  http://localhost:8000/bottles
+post  http://localhost:8000/references
 Content-Type: application/json
 
 
@@ -21,7 +21,7 @@ Content-Type: application/json
 }
 
 ###
-put  http://localhost:8000/bottles/10
+put  http://localhost:8000/references/10
 Content-Type: application/json
 
 
@@ -31,5 +31,5 @@ Content-Type: application/json
 }
 
 ###
-delete  http://localhost:8000/bottles/6
+delete  http://localhost:8000/references/6
 Content-Type: application/json
