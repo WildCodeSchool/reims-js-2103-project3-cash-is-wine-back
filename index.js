@@ -34,7 +34,7 @@ app.listen(port, () => {
 
 app.get('/bottles', (req, res) => {
   connection.query(
-    'SELECT * FROM wine_bottle',
+    'SELECT * FROM reference',
     (err, results) => {
       if (err) {
         res.status(500).send('Error retrieving a bottle from database');
@@ -47,18 +47,17 @@ app.get('/bottles', (req, res) => {
 
 app.post('/bottles', (req, res) => {
   const {
-    estate, appellation, terroir, label, color, variety, type, category, reward, precision, year,
+    appellation, terroir, label, color, variety, type, category, reward, precision, year, price,
   } = req.body;
   connection.query(
-    'INSERT INTO wine_bottle(`estate`, `appellation`, `terroir`, `label`, `color`, `variety`, `type`, `category`, `reward`, `precision`, `year`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
-    [estate, appellation, terroir, label, color, variety, type, category, reward, precision, year],
+    'INSERT INTO reference(`appellation`, `terroir`, `label`, `color`, `variety`, `type`, `category`, `reward`, `precision`, `year`, `price`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)',
+    [appellation, terroir, label, color, variety, type, category, reward, precision, year, price],
     (err, result) => {
       if (err) {
         res.status(500).send('Error saving the bottle');
       } else {
         const newBottle = {
           id: result.insertId,
-          estate,
           appellation,
           terroir,
           label,
@@ -69,6 +68,7 @@ app.post('/bottles', (req, res) => {
           reward,
           precision,
           year,
+          price,
         };
         res.status(201).send(newBottle);
       }
@@ -79,7 +79,7 @@ app.post('/bottles', (req, res) => {
 app.put('/bottles/:id', (req, res) => {
   const bottleId = req.params.id;
   connection.query(
-    'SELECT * FROM wine_bottle WHERE id = ?',
+    'SELECT * FROM reference WHERE id = ?',
     [bottleId],
     (err, selectResults) => {
       if (err) {
@@ -90,7 +90,7 @@ app.put('/bottles/:id', (req, res) => {
         if (bottleFromDb) {
           const bottlePropsToUpdate = req.body;
           connection.query(
-            'UPDATE wine_bottle SET ? WHERE id = ?',
+            'UPDATE reference SET ? WHERE id = ?',
             [bottlePropsToUpdate, bottleId],
             (err) => {
               if (err) {
@@ -113,7 +113,7 @@ app.put('/bottles/:id', (req, res) => {
 app.delete('/bottles/:id', (req, res) => {
   const bottleId = req.params.id;
   connection.query(
-    'DELETE FROM wine_bottle WHERE id = ?',
+    'DELETE FROM reference WHERE id = ?',
     [bottleId],
     (err, results) => {
       if (err) {

@@ -6,8 +6,7 @@ post  http://localhost:8000/bottles
 Content-Type: application/json
 
 
-{
-  "estate" : "Loire",
+{  
   "appellation": "Chinon",
   "terroir": "",
   "label": "AOC-AOP",
@@ -17,7 +16,8 @@ Content-Type: application/json
   "category": "Région 1",
   "reward": "",
   "precision": "2005 est une année exceptionnelle",
-  "year": 2005
+  "year": 2005,
+  "price": "22"
 }
 
 ###
