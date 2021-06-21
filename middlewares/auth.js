@@ -9,7 +9,7 @@ const hashPassword = async (req, res, next) => {
 const verifyPassword = async (req, res, next) => {
   if (await argon2.verify(req.db.password, req.body.password)) {
     const token = jwt.sign({ sub: req.db.id }, 'secret');
-    res.status(200).json({ token });
+    res.status(200).json({ token, email: req.body.email, userId: req.db.id });
   } else {
     res.sendStatus(400);
   }

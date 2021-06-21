@@ -6,7 +6,7 @@ referenceRoutes.get('/', (req, res) => {
     'SELECT * FROM reference',
     (err, results) => {
       if (err) {
-        res.status(500).send('Error retrieving a bottle from database');
+        res.status(500).send('Error retrieving the reference from database');
       } else {
         res.json(results);
       }
@@ -23,9 +23,9 @@ referenceRoutes.post('/', (req, res) => {
     [appellation, terroir, label, color, variety, type, category, reward, precision, year, price],
     (err, result) => {
       if (err) {
-        res.status(500).send('Error saving the bottle');
+        res.status(500).send('Error saving the reference');
       } else {
-        const newBottle = {
+        const newReference = {
           id: result.insertId,
           appellation,
           terroir,
@@ -39,40 +39,40 @@ referenceRoutes.post('/', (req, res) => {
           year,
           price,
         };
-        res.status(201).send(newBottle);
+        res.status(201).send(newReference);
       }
     },
   );
 });
 
 referenceRoutes.put('/:id', (req, res) => {
-  const bottleId = req.params.id;
+  const referenceId = req.params.id;
   connection.query(
     'SELECT * FROM reference WHERE id = ?',
-    [bottleId],
+    [referenceId],
     (err, selectResults) => {
       if (err) {
         console.log(err);
-        res.status(500).send('Error updating the bottle');
+        res.status(500).send('Error updating the reference');
       } else {
-        const bottleFromDb = selectResults[0];
-        if (bottleFromDb) {
-          const bottlePropsToUpdate = req.body;
+        const referenceFromDb = selectResults[0];
+        if (referenceFromDb) {
+          const referencePropsToUpdate = req.body;
           connection.query(
             'UPDATE reference SET ? WHERE id = ?',
-            [bottlePropsToUpdate, bottleId],
+            [referencePropsToUpdate, referenceId],
             (err) => {
               if (err) {
                 console.log(err);
-                res.status(500).send('Error updating the bottle');
+                res.status(500).send('Error updating the reference');
               } else {
-                const updated = { ...bottleFromDb, ...bottlePropsToUpdate };
+                const updated = { ...referenceFromDb, ...referencePropsToUpdate };
                 res.status(200).send(updated);
               }
             },
           );
         } else {
-          res.status(404).send(`Bottle with id ${bottleId} not found.`);
+          res.status(404).send(`Reference with id ${referenceId} not found.`);
         }
       }
     },
@@ -80,16 +80,16 @@ referenceRoutes.put('/:id', (req, res) => {
 });
 
 referenceRoutes.delete('/:id', (req, res) => {
-  const bottleId = req.params.id;
+  const referenceId = req.params.id;
   connection.query(
     'DELETE FROM reference WHERE id = ?',
-    [bottleId],
+    [referenceId],
     (err, results) => {
       if (err) {
         console.log(err);
-        res.status(500).send('Error deleting a bottle');
+        res.status(500).send('Error deleting a reference');
       } else {
-        res.status(200).send('Bottle deleted!');
+        res.status(200).send('Reference deleted!');
       }
     },
   );

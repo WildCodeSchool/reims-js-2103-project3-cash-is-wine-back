@@ -5,7 +5,7 @@ POST http://localhost:8000/users
 Content-type: application/json
 
 {
-    "email": "b@mail.com",
+    "email": "abc@mail.com",
     "password": "123456"
 }
 
@@ -14,8 +14,30 @@ POST http://localhost:8000/login
 Content-type: application/json
 
 {
-    "email": "b@mail.com",
+    "email": "abc@mail.com",
     "password": "123456"
 }
 
+###
+GET http://localhost:8000/users/1/bottles
+
+###
+POST http://localhost:8000/users/1/bottles
+Content-type: application/json
+
+{
+    "name": "test 7",
+    "reference_Id": 1
+}
+
+###
+PUT http://localhost:8000/users/1/bottles/7
+Content-type: application/json
+
+{
+    "name": "tested 4"
+}
+
+###
+DELETE http://localhost:8000/users/1/bottles/6
 
