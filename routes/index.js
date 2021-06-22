@@ -1,6 +1,4 @@
 const routes = require('express').Router();
-const { verifyPassword } = require('../middlewares/auth');
-const db = require('../db-config');
 
 // define the index route
 routes.post('/', (req, res) => {
@@ -8,26 +6,14 @@ routes.post('/', (req, res) => {
   res.send('Hello dear API client :)');
 });
 
-routes.post('/login', (req, res, next) => {
-  const user = {
-    email: req.body.email,
-  };
-
-  db.query('SELECT id, password FROM user WHERE email = ?', [user.email], (err, results) => {
-    if (err) {
-      console.log(err);
-      res.sendStatus(500);
-    } else if (results.length === 1) {
-      req.db = { id: results[0].id, password: results[0].password };
-      next();
-    } else {
-      res.sendStatus(400);
-    }
-  });
-}, verifyPassword);
-
+const loginRoute = require('./login');
 const userRoutes = require('./users');
+const bottleRoutes = require('./bottles');
+const referenceRoutes = require('./references');
 
+routes.use('/login', loginRoute);
 routes.use('/users', userRoutes);
+routes.use('/users', bottleRoutes);
+routes.use('/references', referenceRoutes);
 
 module.exports = routes;

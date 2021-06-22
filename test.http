@@ -1,27 +1,27 @@
-get  http://localhost:8000/bottles
+get  http://localhost:8000/references
 Content-Type: application/json
 
 ###
-post  http://localhost:8000/bottles
+post  http://localhost:8000/references
 Content-Type: application/json
 
 
-{
-  "estate" : "Loire",
+{  
   "appellation": "Chinon",
   "terroir": "",
   "label": "AOC-AOP",
-  "color": "Blanc",
+  "color": "Rouge",
   "variety": "Chenin",
   "type": "Sec",
   "category": "Région 1",
   "reward": "",
   "precision": "2005 est une année exceptionnelle",
-  "year": 2005
+  "year": 2000,
+  "price": "22"
 }
 
 ###
-put  http://localhost:8000/bottles/10
+put  http://localhost:8000/references/10
 Content-Type: application/json
 
 
@@ -31,5 +31,5 @@ Content-Type: application/json
 }
 
 ###
-delete  http://localhost:8000/bottles/6
+delete  http://localhost:8000/references/6
 Content-Type: application/json
