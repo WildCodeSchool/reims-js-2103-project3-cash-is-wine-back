@@ -27,6 +27,9 @@ Content-type: application/json
 
 {
     "name": "test 7",
+    "type": "Sec",
+    "appellation": "Chinon",
+    "year": 2000,
     "reference_Id": 1
 }
 
