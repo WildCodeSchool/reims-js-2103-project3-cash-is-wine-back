@@ -10,10 +10,12 @@ const loginRoute = require('./login');
 const userRoutes = require('./users');
 const bottleRoutes = require('./bottles');
 const referenceRoutes = require('./references');
+const uploadRoute = require('./upload');
 
 routes.use('/login', loginRoute);
 routes.use('/users', userRoutes);
 routes.use('/users', bottleRoutes);
 routes.use('/references', referenceRoutes);
+routes.use('/upload', uploadRoute);
 
 module.exports = routes;
