@@ -14,10 +14,10 @@ Content-Type: application/json
   "variety": "Chenin",
   "type": "Sec",
   "category": "Région 1",
-  "reward": "",
+  "reward": "Récompense N°2",
   "precision": "2005 est une année exceptionnelle",
-  "year": 2000,
-  "price": "22"
+  "year": 2015,
+  "price": "50"
 }
 
 ###
@@ -31,5 +31,8 @@ Content-Type: application/json
 }
 
 ###
-delete  http://localhost:8000/references/6
+delete  http://localhost:8000/references/3
 Content-Type: application/json
+
+###
+get  http://localhost:8000/prices?type=Sec&appellation=Chinon&year=2015&reward=Récompense+N°2

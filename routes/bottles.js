@@ -18,19 +18,21 @@ bottleRoutes.get('/:user_id/bottles', (req, res) => {
 
 bottleRoutes.post('/:user_id/bottles', (req, res) => {
   const {
-    name, referenceId,
+    type, appellation, year, referenceId,
   } = req.body;
   const userId = req.params.user_id;
   connection.query(
-    'INSERT INTO bottle(`name`, `user_Id`, `reference_Id`) VALUES (?, ?, ?)',
-    [name, userId, referenceId],
+    'INSERT INTO bottle(`user_Id`, `type`, `appellation`, `year`, `reference_Id`) VALUES (?, ?, ?, ?, ?)',
+    [userId, type, appellation, year, referenceId],
     (err, result) => {
       if (err) {
         res.status(500).send('Error saving the bottle');
       } else {
         const newBottle = {
           id: result.insertId,
-          name,
+          type,
+          appellation,
+          year,
           referenceId,
         };
         res.status(201).send(newBottle);

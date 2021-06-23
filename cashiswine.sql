@@ -27,8 +27,10 @@ create table user(
 
 create table bottle (
   `id` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(100) NOT NULL,
   `user_id` int,
+  `type` varchar(100) NOT NULL,
+  `appellation` varchar(100) NOT NULL,
+  `year` int NOT NULL,
   `reference_id` int,
   PRIMARY KEY (`id`),
   CONSTRAINT `fk_bottle_user`
