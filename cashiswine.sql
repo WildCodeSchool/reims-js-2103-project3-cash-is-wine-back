@@ -31,6 +31,7 @@ create table bottle (
   `type` varchar(100) NOT NULL,
   `appellation` varchar(100) NOT NULL,
   `year` int NOT NULL,
+  `reward` text NULL,
   `reference_id` int,
   PRIMARY KEY (`id`),
   CONSTRAINT `fk_bottle_user`
