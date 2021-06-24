@@ -4,7 +4,7 @@ const connection = require('../db-config');
 bottleRoutes.get('/:user_id/bottles', (req, res) => {
   const userId = req.params.user_id;
   connection.query(
-    'SELECT bottle.id, bottle.user_id, bottle.type, bottle.appellation, bottle.year, bottle.reward, bottle.reference_id from bottle INNER JOIN user ON user.id = bottle.user_id WHERE user_id = ?',
+    'SELECT bottle.id, bottle.user_id, bottle.type, bottle.appellation, bottle.year, bottle.reward, bottle.reference_id from bottle INNER JOIN user ON user.id = bottle.user_id WHERE user_id = ? ORDER BY bottle.id DESC',
     [userId],
     (err, results) => {
       if (err) {
