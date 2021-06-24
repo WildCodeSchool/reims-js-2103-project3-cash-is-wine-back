@@ -8,23 +8,6 @@ const fs = require('fs');
 
 // define the index route
 uploadRoute.post('/', upload.fields([{ name: 'bottleFront' }, { name: 'bottleBack' }]), (req, res) => {
-  // console.log('hello');
-  // const front = req.files.bottleFront[0];
-  // const back = req.files.bottleBack[0];
-  // console.log(req.files.bottleFront);
-  // console.log(req.files.bottleBack);
-  // console.log(bottleFront[0]);
-  // if (front.size <= 100000) {
-  //   fs.renameSync(front.path, `uploads/${front.originalname}`);
-  // } else {
-  //   fs.rmSync(front.path);
-  // }
-  // if (back.size <= 100000) {
-  //   fs.renameSync(back.path, `uploads/${back.originalname}`);
-  // } else {
-  //   fs.rmSync(back.path);
-  // }
-
   if (req.files.bottleFront[0].size <= 100000 && req.files.bottleBack[0].size <= 100000) {
     fs.renameSync(req.files.bottleFront[0].path, `uploads/${req.files.bottleFront[0].originalname}`);
     fs.renameSync(req.files.bottleBack[0].path, `uploads/${req.files.bottleBack[0].originalname}`);
