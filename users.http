@@ -26,10 +26,10 @@ POST http://localhost:8000/users/1/bottles
 Content-type: application/json
 
 {
-    "name": "test 7",
     "type": "Sec",
     "appellation": "Chinon",
     "year": 2000,
+    "reward": "",
     "reference_Id": 1
 }
 
