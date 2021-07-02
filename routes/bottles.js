@@ -35,6 +35,8 @@ bottleRoutes.post('/:user_id/bottles', (req, res) => {
           year,
           reward,
           referenceId,
+          frontImg,
+          backImg,
         };
         res.status(201).send(newBottle);
       }
