@@ -31,8 +31,10 @@ create table bottle (
   `type` varchar(100) NOT NULL,
   `appellation` varchar(100) NOT NULL,
   `year` int NOT NULL,
-  `reward` text NULL,
+  `reward` text,
   `reference_id` int,
+  `frontImg` text,
+  `BackImg` text,
   PRIMARY KEY (`id`),
   CONSTRAINT `fk_bottle_user`
     FOREIGN KEY (`user_id`)
