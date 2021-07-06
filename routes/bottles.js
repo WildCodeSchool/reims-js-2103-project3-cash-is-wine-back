@@ -4,7 +4,7 @@ const connection = require('../db-config');
 bottleRoutes.get('/:user_id/bottles', (req, res) => {
   const userId = req.params.user_id;
   connection.query(
-    'SELECT bottle.id, bottle.user_id, bottle.type, bottle.appellation, bottle.year, bottle.reward, bottle.reference_id from bottle INNER JOIN user ON user.id = bottle.user_id WHERE user_id = ?',
+    'SELECT bottle.id, bottle.user_id, bottle.type, bottle.appellation, bottle.year, bottle.reward, bottle.reference_id, bottle.frontImg, bottle.backImg from bottle INNER JOIN user ON user.id = bottle.user_id WHERE user_id = ? ORDER BY bottle.id DESC',
     [userId],
     (err, results) => {
       if (err) {
@@ -18,12 +18,12 @@ bottleRoutes.get('/:user_id/bottles', (req, res) => {
 
 bottleRoutes.post('/:user_id/bottles', (req, res) => {
   const {
-    type, appellation, year, reward, referenceId,
+    type, appellation, year, reward, referenceId, frontImg, backImg,
   } = req.body;
   const userId = req.params.user_id;
   connection.query(
-    'INSERT INTO bottle(`user_Id`, `type`, `appellation`, `year`, `reward`, `reference_Id`) VALUES (?, ?, ?, ?, ?, ?)',
-    [userId, type, appellation, year, reward, referenceId],
+    'INSERT INTO bottle(`user_Id`, `type`, `appellation`, `year`, `reward`, `reference_Id`, `frontImg`, `backImg`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+    [userId, type, appellation, year, reward, referenceId, frontImg, backImg],
     (err, result) => {
       if (err) {
         res.status(500).send('Error saving the bottle');
@@ -35,6 +35,8 @@ bottleRoutes.post('/:user_id/bottles', (req, res) => {
           year,
           reward,
           referenceId,
+          frontImg,
+          backImg,
         };
         res.status(201).send(newBottle);
       }
