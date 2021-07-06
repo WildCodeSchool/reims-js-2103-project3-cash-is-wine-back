@@ -14,10 +14,10 @@ Content-Type: application/json
   "variety": "Chenin",
   "type": "Sec",
   "category": "Région 1",
-  "reward": "Récompense N°2",
+  "reward": "",
   "precision": "2005 est une année exceptionnelle",
   "year": 2015,
-  "price": "50"
+  "price": "30"
 }
 
 ###
