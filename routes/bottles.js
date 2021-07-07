@@ -4,7 +4,7 @@ const connection = require('../db-config');
 bottleRoutes.get('/:user_id/bottles', (req, res) => {
   const userId = req.params.user_id;
   connection.query(
-    'SELECT bottle.id, bottle.user_id, bottle.type, bottle.appellation, bottle.year, bottle.reward, bottle.reference_id, bottle.frontImg, bottle.backImg, reference.price from bottle INNER JOIN user ON user.id = bottle.user_id INNER JOIN reference ON bottle.reference_id = reference.id WHERE user_id = ? ORDER BY bottle.id DESC',
+    'SELECT bottle.id, bottle.user_id, bottle.type, bottle.appellation, bottle.year, bottle.reward, bottle.reference_id, bottle.frontImg, bottle.backImg, bottle.quantity, reference.price from bottle INNER JOIN user ON user.id = bottle.user_id INNER JOIN reference ON bottle.reference_id = reference.id WHERE user_id = ? ORDER BY bottle.id DESC',
     [userId],
     (err, results) => {
       if (err) {
@@ -18,21 +18,20 @@ bottleRoutes.get('/:user_id/bottles', (req, res) => {
 
 bottleRoutes.post('/:user_id/bottles', (req, res) => {
   const {
-    type, appellation, year, reward, frontImg, backImg,
+    type, appellation, year, reward, frontImg, backImg, quantity,
   } = req.body;
   const userId = req.params.user_id;
   connection.query(
     'SELECT id from reference WHERE type = ? and appellation = ? and year = ? and reward = ? LIMIT 1',
-    [type, appellation, year, reward, frontImg, backImg],
+    [type, appellation, year, reward],
     (err, result) => {
       if (err) {
         res.status(404).send('No reference matching the bottle');
       } else {
         const referenceId = result[0].id;
-        console.log(referenceId);
         connection.query(
-          'INSERT INTO bottle(`user_Id`, `type`, `appellation`, `year`, `reward`, `reference_Id`, `frontImg`, `backImg`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
-          [userId, type, appellation, year, reward, referenceId, frontImg, backImg],
+          'INSERT INTO bottle(`user_Id`, `type`, `appellation`, `year`, `reward`, `reference_Id`, `frontImg`, `backImg`, `quantity`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
+          [userId, type, appellation, year, reward, referenceId, frontImg, backImg, quantity],
           (error, postResult) => {
             if (error) {
               res.status(500).send('Error saving the bottle');
@@ -46,6 +45,7 @@ bottleRoutes.post('/:user_id/bottles', (req, res) => {
                 referenceId,
                 frontImg,
                 backImg,
+                quantity,
               };
               res.status(201).send(newBottle);
             }
@@ -60,7 +60,7 @@ bottleRoutes.put('/:user_id/bottles/:id', (req, res) => {
   const userId = req.params.user_id;
   const bottleId = req.params.id;
   connection.query(
-    'SELECT * from bottle WHERE id = ?',
+    'SELECT quantity from bottle WHERE id = ?',
     [bottleId, userId],
     (err, selectResults) => {
       if (err) {

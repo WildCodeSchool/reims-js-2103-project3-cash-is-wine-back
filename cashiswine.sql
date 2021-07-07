@@ -34,7 +34,8 @@ create table bottle (
   `reward` text,
   `reference_id` int,
   `frontImg` text,
-  `BackImg` text,
+  `backImg` text,
+  `quantity` int NOT NULL,
   PRIMARY KEY (`id`),
   CONSTRAINT `fk_bottle_user`
     FOREIGN KEY (`user_id`)
