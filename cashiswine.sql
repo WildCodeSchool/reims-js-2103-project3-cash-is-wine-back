@@ -2,6 +2,7 @@ drop database if exists cashiswine;
 create database cashiswine;
 
 use cashiswine;
+mysql_query("SET NAMES 'utf8'");
 
 create table `reference`(
   `id` int NOT NULL AUTO_INCREMENT,
