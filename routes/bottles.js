@@ -30,7 +30,6 @@ bottleRoutes.post('/:user_id/bottles', (req, res) => {
       } else {
         const referenceId = result[0].id;
         const referencePrice = result[0].price;
-        console.log(referencePrice, typeof referencePrice);
         connection.query(
           'INSERT INTO bottle(`user_id`, `type`, `appellation`, `year`, `reward`, `reference_id`, `frontImg`, `backImg`, `quantity`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
           [userId, type, appellation, year, reward, referenceId, frontImg, backImg, quantity],
