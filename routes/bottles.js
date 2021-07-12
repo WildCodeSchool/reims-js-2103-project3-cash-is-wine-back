@@ -24,12 +24,15 @@ bottleRoutes.post('/:user_id/bottles', (req, res) => {
   connection.query(
     'SELECT id, price from reference WHERE type = ? and appellation = ? and year = ? and reward = ? LIMIT 1',
     [type, appellation, year, reward],
-    (err, result) => {
+    (err, [reference]) => {
       if (err) {
-        res.status(404).send('No reference matching the bottle');
+        console.log(err);
+        res.sendStatus(500);
+      } else if (reference == null) {
+        res.sendStatus(400);
       } else {
-        const referenceId = result[0].id;
-        const referencePrice = result[0].price;
+        const referenceId = reference.id;
+        const referencePrice = reference.price;
         connection.query(
           'INSERT INTO bottle(`user_id`, `type`, `appellation`, `year`, `reward`, `reference_id`, `frontImg`, `backImg`, `quantity`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
           [userId, type, appellation, year, reward, referenceId, frontImg, backImg, quantity],
